@@ -8,7 +8,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
-public class ElfCalories {
+public class ElfD1Calories {
 
 	private File getResourceFile(final String fileName) {
 		URL url = this.getClass().getClassLoader().getResource(fileName);
@@ -23,7 +23,7 @@ public class ElfCalories {
 	}
 
 	public static void main(String arg[]) {
-		ElfCalories elf = new ElfCalories();
+		ElfD1Calories elf = new ElfD1Calories();
 		elf.findElfWithMaxCalories("inputfile2.txt");
 	}
 
