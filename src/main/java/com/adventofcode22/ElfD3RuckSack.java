@@ -17,7 +17,6 @@ public class ElfD3RuckSack {
 
 	private Map<Character, Integer> alphabetPoints;
 	private Map<Character, Integer> firstCompartment;
-	private Map<Character, Integer> secondCompartment;
 
 	private File getResourceFile(final String fileName) {
 		URL url = this.getClass().getClassLoader().getResource(fileName);
@@ -40,13 +39,13 @@ public class ElfD3RuckSack {
 
 	public void setGamePoints() {
 		alphabetPoints = new HashMap<Character, Integer>();
-		for (int i = 97 ; i <= 122; i++) {
-			alphabetPoints.put((char)i, i-96);
+		for (int i = 97; i <= 122; i++) {
+			alphabetPoints.put((char) i, i - 96);
 		}
-		for (int i = 65 ; i <= 90; i++) {
-			alphabetPoints.put((char)i, i-38);
+		for (int i = 65; i <= 90; i++) {
+			alphabetPoints.put((char) i, i - 38);
 		}
-		
+
 	}
 
 	public void ruckSack(String fileName) {
@@ -56,13 +55,13 @@ public class ElfD3RuckSack {
 			int totalPointScored = 0;
 			while (myReader.hasNextLine()) {
 				firstCompartment = new HashMap<Character, Integer>();
-				secondCompartment = new HashMap<Character, Integer>();
-				
+				new HashMap<Character, Integer>();
+
 				String data = myReader.nextLine();
 				int findMid = data.length() / 2;
 				String str1 = data.substring(0, findMid);
 				String str2 = data.substring(findMid);
-				
+
 				char[] firstContChars = str1.toCharArray();
 				char[] secondContChars = str2.toCharArray();
 				for (char firstContChar : firstContChars) {
@@ -86,55 +85,54 @@ public class ElfD3RuckSack {
 
 	public void ruckSack3RowsAsAElfGroup(String fileName) {
 		try {
-		File myObj = getResourceFile(fileName);
-		Scanner myReader = new Scanner(myObj);
-		int totalPointScored = 0;
-		int rowCounter = 0;
-		char[] firstRowContChars = null;
-		char[] secondRowContChars = null;
-		Map<Character, Integer> row1 = null, row2 = null, row3 = null;
-		
-		while (myReader.hasNextLine()) {
-			String data = myReader.nextLine();
-			if (rowCounter == 0) {
-				row1 = new HashMap<Character, Integer>();
-				row2 = new HashMap<Character, Integer>();
-				
-				firstRowContChars = data.toCharArray();
-				rowCounter++;
-			} else if (rowCounter == 1 ) {
-				secondRowContChars = data.toCharArray();
-				rowCounter++;
-			} else if (rowCounter == 2 ) {
-				char[] thirdRowContChars = data.toCharArray();
-				for (char firstContChar : firstRowContChars) {
-					row1.put(firstContChar, 1);
-				}
-				for (char secondContChar : secondRowContChars) {
-					row2.put(secondContChar, 1);
-				}
-				
-				for (char thirdRowChar : thirdRowContChars) {
-					if (row1.containsKey(thirdRowChar) && 
-							row2.containsKey(thirdRowChar)) {
-//						System.out.println(" match found "+thirdContChar);
-						totalPointScored += alphabetPoints.get(thirdRowChar);
-						break;
+			File myObj = getResourceFile(fileName);
+			Scanner myReader = new Scanner(myObj);
+			int totalPointScored = 0;
+			int rowCounter = 0;
+			char[] firstRowContChars = null;
+			char[] secondRowContChars = null;
+			Map<Character, Integer> row1 = null, row2 = null, row3 = null;
+
+			while (myReader.hasNextLine()) {
+				String data = myReader.nextLine();
+				if (rowCounter == 0) {
+					row1 = new HashMap<Character, Integer>();
+					row2 = new HashMap<Character, Integer>();
+
+					firstRowContChars = data.toCharArray();
+					rowCounter++;
+				} else if (rowCounter == 1) {
+					secondRowContChars = data.toCharArray();
+					rowCounter++;
+				} else if (rowCounter == 2) {
+					char[] thirdRowContChars = data.toCharArray();
+					for (char firstContChar : firstRowContChars) {
+						row1.put(firstContChar, 1);
 					}
+					for (char secondContChar : secondRowContChars) {
+						row2.put(secondContChar, 1);
+					}
+
+					for (char thirdRowChar : thirdRowContChars) {
+						if (row1.containsKey(thirdRowChar) && row2.containsKey(thirdRowChar)) {
+//						System.out.println(" match found "+thirdContChar);
+							totalPointScored += alphabetPoints.get(thirdRowChar);
+							break;
+						}
+					}
+
+					// Reset all for the next set of 3 rows processing
+					rowCounter = 0;
+					row1 = null;
+					row2 = null;
 				}
-				
-				// Reset all for the next set of 3 rows processing
-				rowCounter = 0;
-				row1 = null;
-				row2 = null;
+
 			}
-			
+			myReader.close();
+			System.out.println("totalPointScored Grouped by 3 Rows : " + totalPointScored);
+		} catch (FileNotFoundException e) {
+			System.out.println("An error occurred.");
+			e.printStackTrace();
 		}
-		myReader.close();
-		System.out.println("totalPointScored Grouped by 3 Rows : " + totalPointScored);
-	} catch (FileNotFoundException e) {
-		System.out.println("An error occurred.");
-		e.printStackTrace();
 	}
-}
 }
