@@ -30,7 +30,48 @@ public class ElfStonePaperScissor {
 		public int getStatusValue() {
 			return statusValue;
 		}
+	}
 
+	public enum SelectionItem {
+		STONE(1), PAPER(2), SCISSOR(3);
+
+		int pointValue;
+
+		SelectionItem(int i) {
+			pointValue = i;
+		}
+
+		public int getPointValue() {
+			return pointValue;
+		}
+	}
+
+	public enum Plyr1Opt {
+		STONE("A"), PAPER("B"), SCISSOR("C");
+
+		String optionSelected;
+
+		Plyr1Opt(String i) {
+			optionSelected = i;
+		}
+
+		public String val() {
+			return optionSelected;
+		}
+	}
+
+	public enum Plyr2Opt {
+		STONE("X"), PAPER("Y"), SCISSOR("Z");
+
+		String optionSelected;
+
+		Plyr2Opt(String i) {
+			optionSelected = i;
+		}
+
+		public String val() {
+			return optionSelected;
+		}
 	}
 
 	private File getResourceFile(final String fileName) {
@@ -53,29 +94,34 @@ public class ElfStonePaperScissor {
 	}
 
 	public void setGamePoints() {
-		// Player 2 points
-
+		// Player 2 points - based on ELF help strategy for problem 1
 		handSymbolPoint = new HashMap<>();
-		handSymbolPoint.put("X", 1); // Rock
-		handSymbolPoint.put("Y", 2); // Paper
-		handSymbolPoint.put("Z", 3); // Scissor
+		handSymbolPoint.put("X", SelectionItem.STONE.getPointValue()); // Rock - 1
+		handSymbolPoint.put("Y", SelectionItem.PAPER.getPointValue()); // Paper - 2
+		handSymbolPoint.put("Z", SelectionItem.SCISSOR.getPointValue()); // Scissor - 3
 
 		// Player 2 result Points with Player 1 competition
 		resultPoints = new HashMap<>();
-//		// Rock vs All
-		resultPoints.put("A X", 3);
-		resultPoints.put("A Y", 6);
-		resultPoints.put("A Z", 0);
+
+		// Rock vs All and the Result Output (WIN / LOSE / DRAW) from Player 2
+		// perspective
+		resultPoints.put(versus(Plyr1Opt.STONE, Plyr2Opt.STONE), GameStatus.DRAW.getStatusValue()); // 3
+		resultPoints.put(versus(Plyr1Opt.STONE, Plyr2Opt.PAPER), GameStatus.WIN.getStatusValue()); // 6
+		resultPoints.put(versus(Plyr1Opt.STONE, Plyr2Opt.SCISSOR), GameStatus.LOSE.getStatusValue()); // 0
 
 		// Paper vs All
-		resultPoints.put("B X", 0);
-		resultPoints.put("B Y", 3);
-		resultPoints.put("B Z", 6);
+		resultPoints.put(versus(Plyr1Opt.PAPER, Plyr2Opt.STONE), GameStatus.LOSE.getStatusValue());
+		resultPoints.put(versus(Plyr1Opt.PAPER, Plyr2Opt.PAPER), GameStatus.DRAW.getStatusValue());
+		resultPoints.put(versus(Plyr1Opt.PAPER, Plyr2Opt.SCISSOR), GameStatus.WIN.getStatusValue());
 
 		// Scissor vs All
-		resultPoints.put("C X", 6);
-		resultPoints.put("C Y", 0);
-		resultPoints.put("C Z", 3);
+		resultPoints.put(versus(Plyr1Opt.SCISSOR, Plyr2Opt.STONE), GameStatus.WIN.getStatusValue()); // 6
+		resultPoints.put(versus(Plyr1Opt.SCISSOR, Plyr2Opt.PAPER), GameStatus.LOSE.getStatusValue()); // 0
+		resultPoints.put(versus(Plyr1Opt.SCISSOR, Plyr2Opt.SCISSOR), GameStatus.DRAW.getStatusValue()); // 3
+	}
+
+	private String versus(Plyr1Opt p1, Plyr2Opt p2) {
+		return new StringBuilder().append(p1.val()).append(" ").append(p2.val()).toString();
 	}
 
 	/*
