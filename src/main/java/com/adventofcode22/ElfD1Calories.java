@@ -24,7 +24,7 @@ public class ElfD1Calories {
 
 	public static void main(String arg[]) {
 		ElfD1Calories elf = new ElfD1Calories();
-		elf.findElfWithMaxCalories("inputfile2.txt");
+		elf.findElfWithMaxCalories("day1-inputfile2.txt");
 	}
 
 	public void findElfWithMaxCalories(String fileName) {
