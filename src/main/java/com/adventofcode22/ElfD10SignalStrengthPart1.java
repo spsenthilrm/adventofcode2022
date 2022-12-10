@@ -35,72 +35,71 @@ public class ElfD10SignalStrengthPart1 {
 	private void findSignalStrength(List<String> dataList) {
 		int X = 1;
 		int noOfCycles = 1; // That time x is 1 -> Assumption
-		System.out.println(dataList);
+//		System.out.println(dataList);
 		List<Integer> signalStrengths = new ArrayList<>();
 		List<Integer> flagSeriesCompleted = new ArrayList<>();
 		int totalSignalStrength= 0;
 		for (String data : dataList) {			
 			
-			System.out.println("Before Cmds that tiem x Value is " + X);
-			System.out.println("Result ::: \nnoOfCycles is " + noOfCycles + "\nX value is " + X);
-			System.out.println(" Total Signal Strengths " + totalSignalStrength);
+//			System.out.println("Before Cmds that tiem x Value is " + X);
+//			System.out.println("Result ::: \nnoOfCycles is " + noOfCycles + "\nX value is " + X);
+//			System.out.println(" Total Signal Strengths " + totalSignalStrength);
 
 //			if (noOfCycles >= 180) break;
 
 			String[] strVal = data.split(" ");
 			String operator = strVal[0];
-			System.out.println(operator);
+//			System.out.println(operator);
 			if (operator.equals("noop")) {
-				System.out.println("Current Cmd is noop and before / that tiem x Value is " + X +" and the no of cycles before "+noOfCycles);
+//				System.out.println("Current Cmd is noop and before / that tiem x Value is " + X +" and the no of cycles before "+noOfCycles);
 				
 				noOfCycles++;
-				System.out.println("Result ::: \nnoOfCycles is " + noOfCycles + "\nX value is " + X);
-				System.out.println("Current Cmd is noop and After that tiem x Value is " + X);
+//				System.out.println("Result ::: \nnoOfCycles is " + noOfCycles + "\nX value is " + X);
+//				System.out.println("Current Cmd is noop and After that tiem x Value is " + X);
 				
 				totalSignalStrength = calcTotalSignalStrength(X, noOfCycles, signalStrengths, flagSeriesCompleted,
 						totalSignalStrength);
 
-				System.out.println("Result Goes HEre ::: \nnoOfCycles is " + noOfCycles + "\nX value is " + X);
-				System.out.println(" list of Signal Strengths " + signalStrengths);
-				System.out.println(" Total Signal Strengths " + totalSignalStrength);
+//				System.out.println("Result Goes HEre ::: \nnoOfCycles is " + noOfCycles + "\nX value is " + X);
+//				System.out.println(" list of Signal Strengths " + signalStrengths);
+//				System.out.println(" Total Signal Strengths " + totalSignalStrength);
 				
 				continue;
 			}
 			int V = Integer.valueOf(strVal[1]);
 			
-			System.out.println("Current Cmd is addx and V value is " + V + " that tiem x Value is " + X +" and the no of cycles before "+noOfCycles);
+//			System.out.println("Current Cmd is addx and V value is " + V + " that tiem x Value is " + X +" and the no of cycles before "+noOfCycles);
 			noOfCycles += 1;
-//			X += V;
 
-			System.out.println("Result ::: \nnoOfCycles is " + noOfCycles + "\nX value is " + X);
-			System.out.println("Current Cmd is addx and V value is " + V + " After that tiem x Value is " + X);
-			
+//			System.out.println("Result ::: \nnoOfCycles is " + noOfCycles + "\nX value is " + X);
+//			System.out.println("Current Cmd is addx and V value is " + V + " After that tiem x Value is " + X);
+//			
 			
 			totalSignalStrength = calcTotalSignalStrength(X, noOfCycles, signalStrengths, flagSeriesCompleted,
 					totalSignalStrength);
-
-			System.out.println("Result Goes HEre ::: \nnoOfCycles is " + noOfCycles + "\nX value is " + X);
-			System.out.println(" list of Signal Strengths " + signalStrengths);
-			System.out.println(" Total Signal Strengths " + totalSignalStrength);
+//
+//			System.out.println("Result Goes HEre ::: \nnoOfCycles is " + noOfCycles + "\nX value is " + X);
+//			System.out.println(" list of Signal Strengths " + signalStrengths);
+//			System.out.println(" Total Signal Strengths " + totalSignalStrength);
 			
 			noOfCycles += 1;
 			X += V;
 
-			System.out.println("Result ::: \nnoOfCycles is " + noOfCycles + "\nX value is " + X);
-			System.out.println("Current Cmd is addx and V value is " + V + " After that tiem x Value is " + X);
-			
+//			System.out.println("Result ::: \nnoOfCycles is " + noOfCycles + "\nX value is " + X);
+//			System.out.println("Current Cmd is addx and V value is " + V + " After that tiem x Value is " + X);
+//			
 			
 			totalSignalStrength = calcTotalSignalStrength(X, noOfCycles, signalStrengths, flagSeriesCompleted,
 					totalSignalStrength);
 			
-			System.out.println("Result Goes HEre ::: \nnoOfCycles is " + noOfCycles + "\nX value is " + X);
-			System.out.println(" list of Signal Strengths " + signalStrengths);
-			System.out.println(" Total Signal Strengths " + totalSignalStrength);
+//			System.out.println("Result Goes HEre ::: \nnoOfCycles is " + noOfCycles + "\nX value is " + X);
+//			System.out.println(" list of Signal Strengths " + signalStrengths);
+//			System.out.println(" Total Signal Strengths " + totalSignalStrength);
 		}
-		System.out.println("Result Goes HEre ::: \nnoOfCycles is " + noOfCycles + "\nX value is " + X);
-		System.out.println(" list of Signal Strengths " + signalStrengths);
-		System.out.println(" Total Signal Strengths " + totalSignalStrength);
-
+		System.out.println("Result Goes Here ::: \nnoOfCycles is " + noOfCycles + "\nX value is " + X);
+		System.out.println("List of Signal Strengths " + signalStrengths);
+		System.out.println("Total Signal Strengths " + totalSignalStrength);
+		//Sample Output for the input which i received.
 		// list of Signal Strengths [420, 1260, 1600, 2940, 2340, 7920]
 		// Total Signal Strengths 16480
 	}
